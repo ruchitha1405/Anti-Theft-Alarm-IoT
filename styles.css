@@ -1,0 +1,374 @@
+* {
+    box-sizing: border-box;
+}
+
+.icon::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+body {
+    font-family: Arial;
+    padding-left: 2px;
+    background-color: white;
+
+}
+
+.left {   
+    float: left;
+    width: 14%;
+}
+
+.right {
+    float: right;
+    width: 86%;
+}
+
+.Opt1 {
+    /* -moz-box-shadow:    3px 3px 5px 6px #ccc; */
+    /* -webkit-box-shadow: 3px 3px 5px 6px #ccc; */
+    /* box-shadow:         3px 3px 5px 6px #ccc; */
+    margin-top: 150px;
+    margin-left: 40px;
+
+    background-color: limegreen;
+    border-color: limegreen;
+    border-style: solid;
+    border-width: 4px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 25%;
+
+    text-align: center;
+    color: darkgreen;
+    box-shadow: 5px 5px 10px seagreen;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 35px;
+
+    padding-top: 90px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.fancy {
+    font-family:cursive;
+    font-size: 40px;
+    color: white;
+    text-align: center;
+  
+    /* Same trick as previously used to make circles */
+    box-sizing: border-box;
+    width     : 150px;
+    height    : 150px;
+    padding   : 80px 1em 0 1em;
+  
+    /* We make room for the "ears" of our cloud */
+    margin    : 0 100px;
+  
+    position: relative;
+  
+    background-color: midnightblue;
+  
+    /* Well, actually we are not making a full circle
+       as we want the bottom of our cloud to be flat.
+       Feel free to tweak this example to make a cloud
+       that isn't flat at the bottom ;) */
+    border-radius: 100% 100% 65% 50%;
+}
+  
+  /* Those are common style that apply to both our ::before
+     and ::after pseudo elements. */
+.fancy::before {
+    /* This is required to be allowed to display the
+       pseudo-elements, event if the value is an empty
+       string */
+    content: '';
+
+    /* We position our pseudo-elements on the left and
+       right sides of the box, but always at the bottom */
+    position: absolute;
+    bottom  : 0;
+    
+    /* This makes sure our pseudo-elements will be below
+       the box content whatever happens. */
+    z-index : -1;
+    
+    background-color: red;
+    border-radius: 100%;
+}
+.fancy::after {
+    /* This is required to be allowed to display the
+       pseudo-elements, event if the value is an empty
+       string */
+    content: '';
+  
+    /* We position our pseudo-elements on the left and
+       right sides of the box, but always at the bottom */
+    position: absolute;
+    bottom  : 0;
+  
+    /* This makes sure our pseudo-elements will be below
+       the box content whatever happens. */
+    z-index : -1;
+  
+    background-color: green;
+    border-radius: 100%;
+}
+  
+.fancy::before {
+    /* This is the  size of the clouds left ear */
+    width  : 125px;
+    height : 125px;
+  
+    /* We slightly move it to the left */
+    left    : -80px;
+  
+    /* To make sure that the bottom of the cloud
+       remains flat, we must make the bottom right
+       corner of the left ear square. */
+    border-bottom-right-radius: 0;
+}
+  
+.fancy::after {
+    /* This is the size of the clouds left ear */
+    width  : 100px;
+    height : 100px;
+  
+    /* We slightly move it to the right */
+    right   : -60px;
+  
+    /* To make sure that the bottom of the cloud
+       remains flat, we must make the bottom left
+       corner of the right ear square. */
+    border-bottom-left-radius: 0;
+}
+
+.fly {
+    position: relative;
+    
+    background-color: gold;
+
+    padding: 52px;
+    
+    border-bottom-left-radius: 100%;
+    border-top-left-radius: 20px;
+    text-align: center;
+    text-shadow: red;
+    color: midnightblue;
+    font-size: 40px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    max-width: 1500px;
+}
+  
+.fly::before {
+    content: "";
+
+    position : absolute;
+    z-index  : -1;
+    bottom   : 15px;
+    right    : 5px;
+    width    : 50%;
+    top      : 80%;
+    max-width: 200px;
+  
+    box-shadow: 0px 15px 10px black;
+    transform: rotate(4deg);
+}
+  
+.button {
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.btn_shadow:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.btn_box {
+    box-shadow: 0px 0px 12px red;
+    position: absolute;
+    top: 400px;
+    left: 550px;
+    border-style: solid;
+    border-color: tomato;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    color: tomato;
+    text-align: center;
+    font-size: 35px;
+    padding-top: 75px;
+    padding-bottom: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.choose1 {
+    padding: 20px;
+    padding-top: 45px;
+    text-align: center;
+    margin-left: 40px;
+    border-color: limegreen;
+    box-shadow: 5px 5px 10px seagreen;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    width: 458px;
+
+    position: absolute;
+    top: 470px;
+    height: 150px;
+
+}
+
+.choose2 {
+    padding: 20px;
+    padding-top: 20px;
+    text-align: center;
+    margin-left: 40px;
+    border-color: tomato;
+    box-shadow: 0px 0px 12px red;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    width: 389px;
+
+    position: absolute;
+    top: 547px;
+    left: 512px;
+    height: 200px;
+
+}
+
+.choose3 {
+    
+    padding-top: 70px;
+    text-align: center;
+    margin-left: 40px;
+    background-color: orange;
+    border-color: orange;
+    box-shadow: 0px 0px 12px pink;
+    border-style: solid;
+    border-width: 5px;
+    width: 400px;
+
+    font-size: 35px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: red;
+
+    position: absolute;
+    top: 200px;
+    left: 950px;
+    height: 500px;
+
+}
+
+.LED {
+    border: yellow;
+    background-color: yellow;
+    width: 30px;
+    height: 50px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+    position: fixed;
+    left: 725px;
+
+    box-shadow: 0px 0px 14px gold;
+
+    animation-name: glow;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+.stand {
+    border: brown;
+    background-color: brown;
+    width: 30px;
+    height: 25px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    position: fixed;
+    left: 725px;
+    top: 617px;
+}
+
+.motion1 {
+    background-color: limegreen;
+    border-color: limegreen;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    animation-name: move1;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+
+.motion2 {
+    background-color: red;
+    border-color: red;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    animation-name: move2;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-delay: -2s;
+}
+
+.motion3 {
+    background-color: midnightblue;
+    border-color: midnightblue;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    animation-name: move3;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-delay: -2s;
+}
+
+@keyframes move1 {
+    0%   {background-color:limegreen; left: 100px; top:300px;}
+    30%  {background-color:yellow; left:100px; top:200px;}
+    70%  {background-color:blue; left:570px; top:150px;}
+    100%  {background-color:red; left:700px; top:400px;}
+}
+
+@keyframes move2 {
+    0%   {background-color:red; left: 1000px; top:700px;}
+    30%  {background-color:yellow; left:500px; top:200px;}
+    60%  {background-color:blue; left:570px; top:700px;}
+    80%  {background-color: red; left: 50px; top: 800px;}
+    100%  {background-color:green; left:900px; top:400px;}
+}
+
+@keyframes move3 {
+    0%   {background-color:midnightblue; left: 20px; top:900px;}
+    30%  {background-color:yellow; left:1000px; top:200px;}
+    60%  {background-color:blue; left:700px; top:700px;}
+    80%  {background-color: red; left: 1000px; top: 800px;}
+    100%  {background-color:green; left:20px; top:900px;}
+}
+
+@keyframes glow {
+    from {background-color: yellow;}
+    to {background-color: lime; box-shadow: 0px 0px 14px lime;}
+}
