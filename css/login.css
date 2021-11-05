@@ -1,0 +1,67 @@
+body {
+    background-color: skyblue;
+}
+
+.login {
+    position: absolute;
+    left: 100px;
+    top: 40px;
+    border-radius: 100%;
+}
+
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+ }
+ 
+
+.container {
+    border-radius: 20px;
+    padding-top: 400px;
+    padding-bottom: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+
+    background-color: skyblue;
+    opacity: 0.9;
+}
+
+form { 
+    color: midnightblue;
+    font-size: 25px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    position: absolute;
+    left: 600px;
+    top: 100px;
+    width: 550px;
+    height: 700px;
+    border-radius: 30px;
+} 
+input[type=text], input[type=password] { 
+    width: 100%; 
+    margin: 8px 0;
+    padding: 12px 20px; 
+    display: inline-block; 
+    border: 3px solid midnightblue; 
+    box-sizing: border-box; 
+    border-radius: 10px;
+}
+button { 
+    font-size: 20px;
+    background-color: midnightblue; 
+    width: 100%;
+    color: white; 
+    padding: 15px; 
+    margin: 10px 0px; 
+    border: none; 
+    cursor: pointer; 
+    border-radius: 10px;
+} 
+button:hover { 
+    transform: scale(1.02);
+    opacity: 0.7; 
+} 

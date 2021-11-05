@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <script src="../js/login.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <video autoplay muted loop id="myVideo">
+        <source src="../img/background.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <form>
+        <div class="container">
+            <div class="login">
+                <img src="../img/profile.png" style="width: 360px; height:360px; border-radius: 100%; object-fit: cover; ">
+            </div>
+            <form>
+                <label>Username : </label>
+                <input type="text" id="myID" placeholder="Enter Username" name="username" required>
+                <label>Password : </label>
+                <input type="password" id="myPassword" placeholder="Enter Password" name="password" required>
+                <button type="submit" onclick="authentication()">Login</button>
+        </div>
+    </form>
+</body>
+
+</html>
