@@ -49,6 +49,7 @@ input[type=text], input[type=password] {
     border: 3px solid midnightblue; 
     box-sizing: border-box; 
     border-radius: 10px;
+    outline: none;
 }
 button { 
     font-size: 20px;
