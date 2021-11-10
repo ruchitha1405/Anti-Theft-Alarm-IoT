@@ -35,7 +35,6 @@ void loop() {
   int b = pulseIn(echo, HIGH)*0.034/2;
   digitalWrite(trig, LOW);
   motiondetected = digitalRead(pin);
-  Serial.println(motiondetected);
   if(a - b > 2 || motiondetected == TRUE)
   {
     Serial.println("ALERT");
