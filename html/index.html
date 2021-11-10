@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/circuit.css">
 
     <script src="../js/select.js"></script>
 
@@ -11,72 +11,47 @@
 </head>
 
 <body>
-    <div class="icon">
-        <div class="left">
-            <div class="fancy">BigFoot</div>
-        </div>
 
-        <div class="right">
-            <div class="fly">Anti Theft and Fire Alarm</div>
-        </div>
-    </div>
-
-    <p class="Opt1">
-        Wanna Open Locker ?
-        <div class="choose1">
-            <button class="button btn_shadow" style="background-color: limegreen; color: white; border-radius: 20px;">Yes</button>
-        </div>
-    </p>
-    <button class="button btn_box" style="background-color: tomato; color: maroon;">
-        View security status 
-    </button>
-    <div class="choose2">
-        <p class="LED"></p>
-        <p class="stand" style="color: white;">_</p>
-    </div>
-
-    <div class="choose3">
-        Reset Password
-        <br>
-        <img src="../img/lock.png" alt="lock_and_key" width="390" height="340" style="position: absolute; top: 150px; left: 1px;">
-    </div>
-
-    <div class="Opt4">
-
-    </div>
-
-    <div class="motion1"></div>
-    <div class="motion2"></div>
-    <div class="motion3"></div>
-
-    <div class='container' style="left: 1600px; top: 400px;">
-        <div class='camera-top'>
-            <div class='zoom'></div>
-            <div class='mode-changer'></div>
-            <div class='sides'></div>
-            <div class='range-finder'></div>
-            <div class='focus'></div>
-            <div class='red'></div>
-            <div class='view-finder'></div>
-            <div class='flash'>
-                <div class='light'></div>
+    <div class="safety_status">
+        <div class="box">
+            <button class="slidebtn"><img src="../img/led.jpg"
+                    style="width: 150px; height:150px; border-radius: 100%; object-fit: cover;"></button>
+            <div class="hide">
+                Some stuff about LED(ON/OFF)
             </div>
         </div>
-        <div class='camera-mid'>
-            <div class='sensor'></div>
-            <div class='lens'></div>
+
+        <br>
+
+        <div class="box">
+            <button class="slidebtn"><img src="../img/temp.jpg"
+                    style="width: 150px; height:150px; border-radius: 100%; object-fit: cover;"></button>
+            <div class="hide">
+                Some stuff about temperature
+            </div>
         </div>
-        <div class='camera-bottom'></div>
+
+        <br>
+
+        <div class="box">
+            <button class="slidebtn"><img src="../img/motion.jpg"
+                    style="width: 150px; height:150px; border-radius: 100%; object-fit: cover;"></button>
+            <div class="hide">
+                Some stuff about motion
+            </div>
+        </div>
+
+        <br>
+
+        <div class="box">
+            <button class="slidebtn"><img src="../img/buzzer.jpg"
+                    style="width: 150px; height:150px; border-radius: 100%; object-fit: cover;"></button>
+            <div class="hide">
+                Some stuff about buzzer(ON/OFF)
+            </div>
+        </div>
     </div>
 
-    <button class="photo">
-        Snap a photo
-    </button>
-
-    <div class="login">
-        <img src="../img/profile.png" style="width: 360px; height:360px; border-radius: 100%; object-fit: cover; ">
-    </div>
-    
 </body>
 
 </html>
