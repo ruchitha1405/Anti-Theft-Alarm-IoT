@@ -16,7 +16,7 @@ function authentication() {
     }
     else{
         cur_chance = cur_chance + 1
-        alert("Invaid Authenticaton !! Please try again. ");
+        alert("Invalid Authenticaton !! Please try again. ");
     }
     
 }
