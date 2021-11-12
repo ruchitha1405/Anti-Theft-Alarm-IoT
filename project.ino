@@ -48,6 +48,13 @@ void setup() {
 }
 void loop() {
   server.handleClient();
+ temperature=GetTemperature();
+  humidity=GetHumidity();
+  pressure=GetPressure();
+  led_status=GetLed_status();
+  buzzer_status=GetBuzzer_status();
+  distance=GetDistance();
+  motion=GetMotion();
 }
 
 //**************SENSOR FUNCTIONS START*************************
@@ -68,13 +75,7 @@ void handle_login(){
   server.send(200, "text/html", SendHTML_login()); }
   
 void handle_monitor(){
-  temperature=GetTemperature();
-  humidity=GetHumidity();
-  pressure=GetPressure();
-  led_status=GetLed_status();
-  buzzer_status=GetBuzzer_status();
-  distance=GetDistance();
-  motion=GetMotion();
+  
   server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
   }
   
