@@ -1,90 +1,113 @@
-#include <WiFi.h>
-#include <WebServer.h>
-//#include <Wire.h>
-//#include <Adafruit_Sensor.h>
-//#include <Adafruit_BME280.h>
+#include "DHT.h"
 
-//#define SEALEVELPRESSURE_HPA (1013.25)
+#define pirPin 19
+#define motionLed 18
+#define fireLed 21
+#define DHTpin 23
+#define buzzer 22
+#define DHTpin 4
 
-//Adafruit_BME280 bme;
+#define DHTtype DHT11
+DHT dht(DHTpin, DHTtype);
 
-String temperature, humidity, pressure, distance,motion,led_status,buzzer_status;
+String username = "Bhargavi";
+String password = "1234";
 
-/*Put your SSID & Password*/
-const char* ssid = "YourNetworkName";  // Enter SSID here
-const char* password = "YourPassword";  //Enter Password here
+String given_username = "";
+String given_password = "";
 
-WebServer server(80);             
- 
-void setup() {
-  Serial.begin(115200);
-  delay(100);
+bool isDetected;
+int limit = 5;
+
+int wrong_access = 0;
+
+void setup()
+{
+  pinMode(pirPin, INPUT);
+  pinMode(motionLed, OUTPUT);
+  pinMode(fireLed, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+
+  digitalWrite(motionLed, LOW);
+  digitalWrite(fireLed, LOW);
+  digitalWrite(buzzer, LOW);
+
+  Serial.begin(9600);
+  dht.begin();
+
+  Serial.println("--------------- Welcome :) -----------------");
+  Serial.println("Please enter the valid credentials");
+  while(limit != 0)
+  {
+    /*Serial.print("Username: ");
+    if (Serial.available())
+    {
+      given_username = Serial.readString();
+    }
+    Serial.print("Password: ");
+    if (Serial.available())
+    {
+      given_password = Serial.readString();
+    }*/
+    if(username.equals("Bhargavi") && password.equals("1234"))
+    {
+      Serial.println("Hey there, Successful authentication :) !!");
+      return;
+    }
+    else
+    {
+      Serial.println("Invalid authentication!! Try again :( !!");
+    }
+
+    limit = limit - 1;
+  }
+  wrong_access = 1;
   
-  //bme.begin(0x76);   
+  digitalWrite(buzzer, HIGH);
+  digitalWrite(motionLed, HIGH);
+  digitalWrite(fireLed, HIGH);
+}
+void loop()
+{
+  if(wrong_access == 1)
+  {
+    return;
+  }
+  isDetected = digitalRead(pirPin);
 
-  Serial.println("Connecting to ");
-  Serial.println(ssid);
+  if (isDetected)
+  {
+    Serial.println("Motion detected");
+    digitalWrite(motionLed, HIGH);
+    digitalWrite(buzzer, HIGH);
 
-  //connect to your local wi-fi network
-  WiFi.begin(ssid, password);
+    delay(3000);
+  }
+  else
+  {
+    Serial.println("No motion detected");
+  }
 
-  //check wi-fi is connected to wi-fi network
-  while (WiFi.status() != WL_CONNECTED) {
+  digitalWrite(buzzer, LOW);
+  digitalWrite(motionLed, LOW);
+
+  delay(2000);
+
+  float t = dht.readTemperature();
+  Serial.print("Temperature: ");
+  Serial.println(t);
+
+  if (t > 20.0)
+  {
+    digitalWrite(fireLed, HIGH);
+    digitalWrite(buzzer, HIGH);
+
+    delay(3000);
+  }
+
+  digitalWrite(buzzer, LOW);
+  digitalWrite(motionLed, LOW);
+  digitalWrite(fireLed, LOW);
+
   delay(1000);
-  Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected..!");
-  Serial.print("Got IP: ");  Serial.println(WiFi.localIP());
-
-  server.on("/", handle_OnConnect);
-  server.on("/login", handle_login);
-  server.on("/monitor", handle_monitor);
-  server.onNotFound(handle_NotFound);
-
-  server.begin();
-  Serial.println("HTTP server started");
-
 }
-void loop() {
-  server.handleClient();
- temperature=GetTemperature();
-  humidity=GetHumidity();
-  pressure=GetPressure();
-  led_status=GetLed_status();
-  buzzer_status=GetBuzzer_status();
-  distance=GetDistance();
-  motion=GetMotion();
-}
-
-//**************SENSOR FUNCTIONS START*************************
-GetTemperature(){}
-GetHumidity(){}
-GetPressure(){}
-GetLed_status(){}
-GetBuzzer_status(){}
-GetDistance(){}
-GetMotion(){}
-//**************SENSOR FUNCTIONS END*************************
-//**************HANDLE FUNCTIONS START*************************
-void handle_OnConnect() {
- 
-  server.send(200, "text/html", SendHTML_home()); 
-}
-void handle_login(){
-  server.send(200, "text/html", SendHTML_login()); }
-  
-void handle_monitor(){
-  
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
-  }
-  
-void handle_NotFound(){
-  server.send(404, "text/plain", "Not found");
-}
-//**************HANDLE FUNCTIONS END*************************
-//**************SendHTML FUNCTIONS START*************************
-String SendHTML_home(){}
-String SendHTML_login(){} 
-String SendHTML_monitor(String temperature,String humidity,String pressure,String led_status,String buzzer_status,String distance,String motion){}
-//**************SendHTML FUNCTIONS END*************************
