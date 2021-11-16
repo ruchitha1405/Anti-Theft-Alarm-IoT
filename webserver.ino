@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <WebServer.h>
+#include <WiFiClient.h>
 //#include <Wire.h>
 //#include <Adafruit_Sensor.h>
 //#include <Adafruit_BME280.h>
@@ -13,6 +14,10 @@ String temperature, humidity, pressure, distance,motion,led_status,buzzer_status
 /*Put your SSID & Password*/
 const char* ssid = "YourNetworkName";  // Enter SSID here
 const char* password = "YourPassword";  //Enter Password here
+
+// Email alerts through IFTTTS SERVER
+const char *host = "maker.ifttt.com";
+const char *privateKey = "*********";
 
 WebServer server(80);             
 
@@ -88,3 +93,41 @@ String SendHTML_home(){}
 String SendHTML_login(){} 
 String SendHTML_monitor(String temperature,String humidity,String pressure,String led_status,String buzzer_status,String distance,String motion){}
 //**************SendHTML FUNCTIONS END*************************
+
+void send_event(const char *event)
+{
+  Serial.print("Connecting to ");
+  Serial.println(host);
+  WiFiClient client;
+  const int httpPort = 80;
+  if (!client.connect(host, httpPort)) 
+  {
+  Serial.println("Connection failed");
+  return;
+  }
+  String url = "/trigger/";
+  url += event;
+  url += "/with/key/";
+  url += privateKey;
+  Serial.print("Requesting URL: ");
+  Serial.println(url);
+  client.print(String("GET ") + url + " HTTP/1.1\r\n" +"Host: " + host + "\r\n" + "Connection: close\r\n\r\n");
+  
+  while(client.connected())
+  {
+    if(client.available())
+    {
+      // sends msg to server
+
+      String line = client.readStringUntil('\r');
+      Serial.print(line);
+    } 
+    else 
+    {
+      delay(50);
+    }
+  }
+  Serial.println();
+  Serial.println("Closing Connection");
+  client.stop();
+}
