@@ -47,6 +47,8 @@ void setup() {
   server.on("/data.txt", [](){
      if(trig){
        data = "Person Detected!";
+       send_event("Motion_Detection");
+       Serial.println("Motion detected!");
      }else{
        data = "No motion detected";
      }
