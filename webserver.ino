@@ -26,9 +26,8 @@ String password = "1234";
 int authentication = 0;
 bool isDetected;
 float t;
-float humidity;
-bool led_status;
-
+String username;
+String password;
 
 String temperature, humidity, pressure, distance,motion,led_status,buzzer_status;
 
@@ -87,6 +86,7 @@ void setup() {
 
 void loop() {
   server.handleClient();
+  led_status = String(0);
   int authentication = 0;
   username = "";
   password = "";
@@ -114,16 +114,18 @@ void loop() {
     Serial.println("Invalid authentication!! Try again 😦 !!");
   }
 
-  
+  humidity = dht.readHumidity();
   digitalWrite(buzzer, LOW);
   digitalWrite(motionLed, LOW);
   digitalWrite(fireLed, LOW);
   isDetected = digitalRead(pirPin);
+  motion = String(isDetected);
 
   if (isDetected && authentication == 0)
   {
     Serial.println("Motion detected");
     digitalWrite(motionLed, HIGH);
+    led_status = String(1);
     digitalWrite(buzzer, HIGH);
     while(1)
     {
@@ -134,6 +136,7 @@ void loop() {
       yes = Serial.readString();
       if(yes == "y\n")
       {
+        led_status = String(0);
         continue;
       }
     }
@@ -148,27 +151,32 @@ void loop() {
   float t = dht.readTemperature();
   Serial.print("Temperature: ");
   Serial.println(t);
+  temperature = String(t);
 
   if (t > 50)
   {
     digitalWrite(fireLed, HIGH);
+    led_status = String(1);
     digitalWrite(buzzer, HIGH);
   }
 
   while(authentication == 1)
   {
     isDetected = digitalRead(pirPin);
+    motion = String(isDetected);
     if(isDetected)
     {
       Serial.println("Motion detected");
     }
     float t = dht.readTemperature();
+    temperature = String(t);
     Serial.print("Temperature: ");
     Serial.println(t);
 
     if (t > 50)
     {
       digitalWrite(fireLed, HIGH);
+      led_status = String(1);
       digitalWrite(buzzer, HIGH);
     }
     
