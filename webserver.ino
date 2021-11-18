@@ -87,49 +87,53 @@ void setup() {
 
 void loop() {
   server.handleClient();
+  int authentication = 0;
+  username = "";
+  password = "";
+  Serial.println("--------------- Welcome 🙂 -----------------");
   Serial.println("Please enter the username");
+  delay(10000);
   if(Serial.available() > 0)
   {
-  username = Serial.read();
+  username = Serial.readString();
+  Serial.println(username);
+  }
   Serial.println("Please enter the password");
+  delay(10000);
   if(Serial.available() > 0){
-  password = Serial.read();
-  if(username.equals("User") && password.equals("1234"))
+  password = Serial.readString();
+  Serial.println(password); 
+  }
+  if(username == "User\n" && password == "1234\n")
   {
-    Serial.println("Hey there, Successful authentication !!");
+    Serial.println("Hey there, Successful authentication 🙂 !!");
     authentication = 1;
   }
    else
   {
-    Serial.println("Invalid authentication!! Try again !!");
+    Serial.println("Invalid authentication!! Try again 😦 !!");
   }
-  }
-  }
+
   
   digitalWrite(buzzer, LOW);
   digitalWrite(motionLed, LOW);
   digitalWrite(fireLed, LOW);
-  led_status = 0;
   isDetected = digitalRead(pirPin);
-  humidity = dht.readHumidity();
+
   if (isDetected && authentication == 0)
   {
     Serial.println("Motion detected");
     digitalWrite(motionLed, HIGH);
-    led_status = 1;
     digitalWrite(buzzer, HIGH);
     while(1)
     {
     Serial.println("Motion detected. If this is something you know please press y");
     if(Serial.available() > 0)
     {
-      char yes;
-      yes = Serial.read();
-      if(yes == 'y')
+      String yes;
+      yes = Serial.readString();
+      if(yes == "y\n")
       {
-        digitalWrite(buzzer, LOW);
-        digitalWrite(motionLed, LOW);
-        led_status = 0;
         continue;
       }
     }
@@ -141,16 +145,14 @@ void loop() {
     Serial.println("No motion detected");
   }
 
-  t = dht.readTemperature();
+  float t = dht.readTemperature();
   Serial.print("Temperature: ");
   Serial.println(t);
 
   if (t > 50)
   {
     digitalWrite(fireLed, HIGH);
-    led_status = 1;
     digitalWrite(buzzer, HIGH);
-    
   }
 
   while(authentication == 1)
@@ -168,20 +170,25 @@ void loop() {
     {
       digitalWrite(fireLed, HIGH);
       digitalWrite(buzzer, HIGH);
-      led_status = 1;
     }
-    char exiting;
+    
+    String exiting;
     if(Serial.available() > 0)
     {
-      exiting = Serial.read();
-      if(exiting == 'q')
+      exiting = Serial.readString();
+      if(exiting == "q\n")
       {
         authentication = 0;
+      }
+      if(exiting == "exit\n")
+      {
+        exit(0);
       }
     }
     delay(1000);
     
   }
+  delay(500);
 }
 
 //**************SENSOR FUNCTIONS START*************************
