@@ -78,6 +78,11 @@ void setup() {
   server.on("/monitor", handle_monitor);
   server.onNotFound(handle_NotFound);
 
+  /////extra
+ server.on("/monitorled", handle_monitorled);
+ server.on("/monitorbuzzer", handle_monitorbuzzer);
+///////
+  
   server.begin();
   Serial.println("HTTP server started");
 
@@ -217,6 +222,32 @@ void handle_monitor(){
 void handle_NotFound(){
   server.send(404, "text/plain", "Not found");
 }
+
+////////extra
+void handle_monitorled(){
+    if(led_status=="ON"){
+          digitalWrite(motionLed, LOW);
+          digitalWrite(fireLed, LOW);
+          led_status=="OFF";
+      }
+      else {
+          digitalWrite(motionLed, HIGH);
+          led_status=="ON";
+      }
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
+  }
+  void handle_monitorbuzzer(){
+      if(buzzer_status=="ON"){
+          digitalWrite(buzzer, LOW);
+          buzzer_status=="OFF";
+      }
+      else {
+          digitalWrite(buzzer, HIGH);
+          buzzer_status=="ON";
+      }
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
+  }
+  ////////////////////
 //**************HANDLE FUNCTIONS END*************************
 //**************SendHTML FUNCTIONS START*************************
 const char HOME_page[] PROGMEM = R"=====(
