@@ -29,7 +29,7 @@ float t;
 String username;
 String password;
 
-String temperature, humidity, pressure, distance,motion,led_status,buzzer_status;
+String temperature, humidity, /*pressure, distance*/,motion,led_status,buzzer_status;
 
 /*Put your SSID & Password*/
 const char* ssid = "YourNetworkName";  // Enter SSID here
@@ -211,7 +211,7 @@ void handle_login(){
 
 void handle_monitor(){
 
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,/* pressure,*/led_status, buzzer_status, String("200"), motion));
   }
 
 void handle_NotFound(){
@@ -458,7 +458,7 @@ String SendHTML_login(){
    String s = LOGIN_page;
   return s;
 } 
-String SendHTML_monitor(String temperature,String humidity,String pressure,String led_status,String buzzer_status,String distance,String motion){
+String SendHTML_monitor(String temperature,String humidity,/*String pressure,*/String led_status,String led_status,String("200"),String motion){
 
 String ptr = "<!DOCTYPE html> <html>\n";
   ptr +="<head><meta charset=\"utf-8\">\n";
