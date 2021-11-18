@@ -1,48 +1,122 @@
 #include "DHT.h"
-#define DHTTYPE DHT11
-#define dht_dpin 5
-#define trig 14
-#define echo 27
-#define pin 12
-bool motiondetected;
-float temp1;
-float temp2;
-DHT dht(dht_dpin, DHTTYPE);
-void setup() {
-  // put your setup code here, to run once:
+
+#define pirPin 19
+#define motionLed 18
+#define fireLed 21
+#define DHTpin 23
+#define buzzer 22
+
+#define DHTtype DHT11
+DHT dht(DHTpin, DHTtype);
+
+String username = "Bhargavi";
+String password = "1234";
+
+bool isDetected;
+
+void setup()
+{
   Serial.begin(9600);
+  pinMode(pirPin, INPUT);
+  pinMode(motionLed, OUTPUT);
+  pinMode(fireLed, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  digitalWrite(motionLed, LOW);
+  digitalWrite(fireLed, LOW);
+  digitalWrite(buzzer, LOW);
   dht.begin();
-  pinMode(trig, OUTPUT);
-  pinMode(echo, INPUT);
-  pinMode(pin, INPUT);
+  Serial.println("--------------- Welcome 🙂 -----------------");
 }
 
-void loop() {
-  temp1 = dht.readTemperature();
-  digitalWrite(trig, LOW);
-  delay(2);
-  digitalWrite(trig, HIGH);
-  delay(10);
-  digitalWrite(trig, LOW);
-  //Serial.print("Distance: ");
-  int a = pulseIn(echo, HIGH)*0.034/2;
-  delay(1000);
-  digitalWrite(trig, LOW);
-  delay(2);
-  digitalWrite(trig, HIGH);
-  delay(10);
-  digitalWrite(trig, LOW);
-  int b = pulseIn(echo, HIGH)*0.034/2;
-  digitalWrite(trig, LOW);
-  motiondetected = digitalRead(pin);
-  if(a - b > 2 || motiondetected == TRUE)
+void loop()
+{
+  int authentication = 0;
+  Serial.println("--------------- Welcome 🙂 -----------------");
+  Serial.println("Please enter the username");
+  if(Serial.available() > 0)
   {
-    Serial.println("ALERT");
+  username = Serial.read();
+  Serial.println("Please enter the password");
+  if(Serial.available() > 0){
+  password = Serial.read();
+  if(username.equals("User") && password.equals("1234"))
+  {
+    Serial.println("Hey there, Successful authentication 🙂 !!");
+    authentication = 1;
   }
-  temp2 = dht.readTemperature();
-  if(temp2 - temp1 > 1.5)
+   else
   {
-    Serial.println("Fire alert");
+    Serial.println("Invalid authentication!! Try again 😦 !!");
+  }
+  }
+  }
+  
+  digitalWrite(buzzer, LOW);
+  digitalWrite(motionLed, LOW);
+  digitalWrite(fireLed, LOW);
+  isDetected = digitalRead(pirPin);
+
+  if (isDetected && authentication == 0)
+  {
+    Serial.println("Motion detected");
+    digitalWrite(motionLed, HIGH);
+    digitalWrite(buzzer, HIGH);
+    while(1)
+    {
+    Serial.println("Motion detected. If this is something you know please press y");
+    if(Serial.available() > 0)
+    {
+      char yes;
+      yes = Serial.read();
+      if(yes == 'y')
+      {
+        continue;
+      }
+    }
+    delay(1000);
+  }
+  }
+  else
+  {
+    Serial.println("No motion detected");
   }
 
+  float t = dht.readTemperature();
+  Serial.print("Temperature: ");
+  Serial.println(t);
+
+  if (t > 50)
+  {
+    digitalWrite(fireLed, HIGH);
+    digitalWrite(buzzer, HIGH);
+  }
+
+  while(authentication == 1)
+  {
+    isDetected = digitalRead(pirPin);
+    if(isDetected)
+    {
+      Serial.println("Motion detected");
+    }
+    float t = dht.readTemperature();
+    Serial.print("Temperature: ");
+    Serial.println(t);
+
+    if (t > 50)
+    {
+      digitalWrite(fireLed, HIGH);
+      digitalWrite(buzzer, HIGH);
+    }
+    char exiting;
+    if(Serial.available() > 0)
+    {
+      exiting = Serial.read();
+      if(exiting == 'q')
+      {
+        authentication = 0;
+      }
+    }
+    delay(1000);
+    
+  }
 }
