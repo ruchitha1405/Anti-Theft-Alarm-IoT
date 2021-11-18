@@ -29,7 +29,7 @@ float t;
 String username;
 String password;
 
-String temperature, humidity, /*pressure, distance*/,motion,led_status,buzzer_status;
+String temperature, humidity, /*pressure, distance,*/motion,led_status,buzzer_status;
 
 /*Put your SSID & Password*/
 const char* ssid = "YourNetworkName";  // Enter SSID here
