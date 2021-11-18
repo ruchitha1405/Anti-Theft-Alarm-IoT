@@ -23,6 +23,7 @@ DHT dht(DHTpin, DHTtype);
 String username = "Bhargavi";
 String password = "1234";
 
+int authentication = 0;
 bool isDetected;
 float t;
 float humidity;
@@ -86,7 +87,6 @@ void setup() {
 
 void loop() {
   server.handleClient();
-  int authentication = 0;
   Serial.println("Please enter the username");
   if(Serial.available() > 0)
   {
