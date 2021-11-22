@@ -44,45 +44,6 @@ plt.gcf().autofmt_xdate()
 plt.show()
 plt.savefig('motion.jpg')
 
-# ===================================== Distance retrieval ==========================================
-
-ae2 = "Distance"
-cnt2 = "node2"
-
-uri_ae2 = uri_cse + "/" + ae2
-uri_cnt2 = uri_ae2 + "/" + cnt2
-
-uri_req2 = uri_cnt2 + "/?rcn=4"
-
-headers = {
-    'X-M2M-Origin': 'admin:admin',
-    'Content-type': 'application/json'
-}
-
-response2 = requests.get(uri_req2, headers=headers)
-res2 = json.loads(response2.text)
-# print(res)
-
-cins2 = res2["m2m:cnt"]["m2m:cin"]
-
-x2 = []
-y2 = []
-
-for cin in cins2:
-    dt = datetime.strptime(cin["ct"], '%Y%m%dT%H%M%S')
-    x2.append(dt)
-    y2.append(float(cin["con"]))
-
-
-
-plt.plot(x2, y2)
-plt.xlabel("time")
-plt.ylabel("Distance")
-
-plt.gcf().autofmt_xdate()
-plt.show()
-plt.savefig('distance.jpg')
-
 # ===================================== temperature retrieval ===============================
 
 ae3 = "Temperature"
