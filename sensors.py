@@ -15,19 +15,6 @@ create_cnt(uri_ae1, cnt1)
 uri_cnt1 = uri_ae1 + "/" + cnt1
 create_data_cin(uri_cnt1, "random_value")
 
-# ========================== room for HC-SR04 sensor ===================================
-
-ae2 = "Distance"
-cnt2 = "node2"
-
-create_ae(uri_cse, ae2)
-
-uri_ae2 = uri_cse + "/" + ae2
-create_cnt(uri_ae2, cnt2)
-
-uri_cnt2 = uri_ae2 + "/" + cnt2
-create_data_cin(uri_cnt2, "random_value")
-
 # =========================== room for temperature =====================================
 
 ae3 = "Temperature"
