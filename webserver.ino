@@ -45,9 +45,6 @@ String server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/";
 String ae1 = "Motion";
 String cnt1 = "node1";
 
-String ae2 = "Distance";
-String cnt2 = "node2";
-
 String ae3 = "Temperature";
 String cnt3 = "node3";
 
