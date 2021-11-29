@@ -512,14 +512,14 @@ void loop() {
     }
     float t = dht.readTemperature();
     temperature = String(t);
-    Serial.print("Temperature: ");
-    Serial.println(t);
 
     if (t > 50)
     {
       digitalWrite(fireLed, HIGH);
       led_status = String("ON");
       digitalWrite(buzzer, HIGH);
+      Serial.print("Temperature: ");
+      Serial.println(t);
     }
     
     String exiting;
