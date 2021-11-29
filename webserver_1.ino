@@ -477,7 +477,7 @@ void loop() {
     Serial.println("Motion detected. If this is something you know please open the website");
         if(led_status = "OFF"){
 
-        led_status = String(0);
+        led_status = String("OFF");
         break;;
     }
     delay(1000);
