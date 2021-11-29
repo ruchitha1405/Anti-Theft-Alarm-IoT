@@ -394,7 +394,7 @@ void handle_monitorled(){
           digitalWrite(motionLed, HIGH);
           led_status=="ON";
       }
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,led_status, buzzer_status, distance, motion));
   }
   void handle_monitorbuzzer(){
       if(buzzer_status=="ON"){
@@ -408,7 +408,7 @@ void handle_monitorled(){
           digitalWrite(buzzer,LOW);
           
       }
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,led_status, buzzer_status, distance, motion));
   }
   ////////////////////
 //**************HANDLE FUNCTIONS END*************************
