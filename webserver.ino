@@ -22,10 +22,10 @@
 
 #define DHTtype DHT11
 DHT dht(DHTpin, DHTtype);
-
+/*
 String username = "Bhargavi";
 String password = "1234";
-
+*/
 int authentication = 0;
 bool isDetected;
 float t;
@@ -35,12 +35,12 @@ String password;
 String temperature, humidity, /*pressure, distance,*/motion,led_status,buzzer_status;
 
 /*Put your SSID & Password*/
-const char* ssid = "YourNetworkName";  // Enter SSID here
-const char* password = "YourPassword";  //Enter Password here
+const char* ssid = "Your ssid";  // Enter SSID here
+const char* Password = "Your password";  //Enter Password here
 
 String cse_ip = "192.168.1.7";   // Do ifconfig to get your ip.
 String cse_port = "8080";
-String server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/";
+String Server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/";
 
 String ae1 = "Motion";
 String cnt1 = "node1";
@@ -51,10 +51,10 @@ String cnt3 = "node3";
 String ae4 = "Humidity";
 String cnt4 = "node4";
 
-void createCI(String& val, String& ae, String& cnt)
+void CreateCI(String& val, String& ae, String& cnt)
 {
   HTTPClient http;
-  http.begin(server + ae + "/" + cnt + "/");
+  http.begin(Server + ae + "/" + cnt + "/");
   http.addHeader("X-M2M-Origin", "admin:admin");
   http.addHeader("Content-Type", "application/json;ty=4");
 
@@ -92,10 +92,10 @@ void setup() {
   digitalWrite(buzzer, LOW);
   dht.begin();
   Serial.println("--------------- Welcome -----------------");
-  led_status = 0;
+  led_status = String(0);
 
   //connect to your local wi-fi network
-  WiFi.begin(ssid, password);
+  WiFi.begin(ssid, Password);
 
   //check wi-fi is connected to wi-fi network
   while (WiFi.status() != WL_CONNECTED) {
@@ -259,7 +259,7 @@ void handle_login(){
 
 void handle_monitor(){
 
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,/* pressure,*/led_status, buzzer_status, String("200"), motion));
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,led_status, buzzer_status, String("200"), motion));
   }
 
 void handle_NotFound(){
@@ -277,7 +277,7 @@ void handle_monitorled(){
           digitalWrite(motionLed, HIGH);
           led_status=="ON";
       }
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, led_status, buzzer_status, led_status, motion));
   }
   void handle_monitorbuzzer(){
       if(buzzer_status=="ON"){
@@ -288,7 +288,7 @@ void handle_monitorled(){
           digitalWrite(buzzer, HIGH);
           buzzer_status=="ON";
       }
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity, led_status, buzzer_status, led_status, motion));
   }
   ////////////////////
 //**************HANDLE FUNCTIONS END*************************
@@ -530,9 +530,9 @@ String SendHTML_home(){
 }
 String SendHTML_login(){
    String s = LOGIN_page;
-  return s;
+   return s;
 } 
-String SendHTML_monitor(String temperature,String humidity,/*String pressure,*/String led_status,String led_status,String("200"),String motion){
+String SendHTML_monitor(String temperature,String humidity,led_status, led_status,String("200"),String (motion){
 
 String ptr = "<!DOCTYPE html> <html>\n";
   ptr +="<head><meta charset=\"utf-8\">\n";
