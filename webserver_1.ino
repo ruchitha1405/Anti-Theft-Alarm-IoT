@@ -530,6 +530,7 @@ void loop() {
     digitalWrite(fireLed, HIGH);
     led_status = String("ON");
     digitalWrite(buzzer, HIGH);
+    delay(1000);
   }
 
   while(authentication == 1)
@@ -552,6 +553,7 @@ void loop() {
       digitalWrite(buzzer, HIGH);
       Serial.print("Temperature: ");
       Serial.println(t);
+      delay(1000);
     }
     
     String exiting;
