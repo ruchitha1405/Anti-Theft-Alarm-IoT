@@ -402,8 +402,11 @@ void handle_monitorled(){
           buzzer_status=="OFF";
       }
       else {
-          digitalWrite(buzzer, HIGH);
           buzzer_status=="ON";
+          digitalWrite(buzzer, HIGH);
+          delay(50);
+          digitalWrite(buzzer,LOW);
+          
       }
   server.send(200, "text/html", SendHTML_monitor(temperature,humidity, pressure,led_status, buzzer_status, distance, motion));
   }
