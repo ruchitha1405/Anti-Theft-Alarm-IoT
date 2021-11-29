@@ -124,7 +124,7 @@ void setup() {
 
 void loop() {
   server.handleClient();
-  led_status = String(0);
+  led_status = String("OFF");
   int authentication = 0;
   username = "";
   password = "";
@@ -170,18 +170,16 @@ void loop() {
   {
     Serial.println("Motion detected");
     digitalWrite(motionLed, HIGH);
-    led_status = String(1);
+    led_status = String("ON");
     digitalWrite(buzzer, HIGH);
     while(1)
     {
-    Serial.println("Motion detected. If this is something you know please press y");
-    if(Serial.available() > 0)
+    Serial.println("Motion detected. If this is something you know please use the website to turn off the led and buzzer");
+    if(led_status == "OFF")
     {
-      String yes;
-      yes = Serial.readString();
       if(yes == "y\n")
       {
-        led_status = String(0);
+        led_status = String("ON");
         continue;
       }
     }
@@ -204,7 +202,7 @@ void loop() {
   if (t > 50)
   {
     digitalWrite(fireLed, HIGH);
-    led_status = String(1);
+    led_status = String("ON");
     digitalWrite(buzzer, HIGH);
   }
 
@@ -224,7 +222,7 @@ void loop() {
     if (t > 50)
     {
       digitalWrite(fireLed, HIGH);
-      led_status = String(1);
+      led_status = String("ON");
       digitalWrite(buzzer, HIGH);
     }
     
