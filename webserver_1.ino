@@ -470,7 +470,7 @@ void loop() {
   {
     Serial.println("Motion detected");
     digitalWrite(motionLed, HIGH);
-    led_status = String(1);
+    led_status = String("ON");
     digitalWrite(buzzer, HIGH);
     while(1)
     {
