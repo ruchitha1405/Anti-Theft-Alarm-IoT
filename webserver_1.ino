@@ -1,6 +1,9 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <WiFiClient.h>
+#include "HTTPClient.h"
+#include "time.h"
+#include <ArduinoJson.h>
 //#include <Wire.h>
 //#include <Adafruit_Sensor.h>
 //#include <Adafruit_BME280.h>
@@ -32,6 +35,37 @@ String distance = "200";
 /*Put your SSID & Password*/
 const char* ssid = "Galaxy M511CCF";  // Enter SSID here
 const char* pwd = "vofe0348";  //Enter Password here
+
+String cse_ip = "192.168.1.7";   // Do ifconfig to get your ip.
+String cse_port = "8080";
+String Server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/";
+
+String ae1 = "Motion";
+String cnt1 = "node1";
+
+String ae3 = "Temperature";
+String cnt3 = "node3";
+
+String ae4 = "Humidity";
+String cnt4 = "node4";
+
+void CreateCI(String& val, String& ae, String& cnt)
+{
+  HTTPClient http;
+  http.begin(Server + ae + "/" + cnt + "/");
+  http.addHeader("X-M2M-Origin", "admin:admin");
+  http.addHeader("Content-Type", "application/json;ty=4");
+
+  int code = http.POST("{\"m2m:cin\": {\"cnf\":\"application/json\",\"con\": " + String(val) + "}}");
+
+  Serial.println(code);
+  if (code == -1) {
+    Serial.println("UNABLE TO CONNECT TO THE SERVER");
+  }
+  http.end();
+
+}
+
 
 // Email alerts through IFTTTS SERVER
 const char *host = "maker.ifttt.com";
@@ -493,11 +527,16 @@ void loop() {
   }
 
   humidity = dht.readHumidity();
+  String humidity_val = (String)humidity;
+  CreateCI(humidity_val, ae4, cnt4);
+    
   digitalWrite(buzzer, LOW);
   digitalWrite(motionLed, LOW);
   digitalWrite(fireLed, LOW);
   for(int i = 0; i< 10; i++){
       isDetected = digitalRead(pirPin);
+      String motion_val = (String)isDetected;
+      CreateCI(motion_val, ae1, cnt1);
   motion = String(isDetected);
   if (isDetected && authentication == 0)
   {
@@ -524,6 +563,9 @@ void loop() {
   }
 
   float t = dht.readTemperature();
+  String temp_val = (String)t;
+  CreateCI(temp_val, ae3, cnt3);
+    
   Serial.print("Temperature: ");
   Serial.println(t);
   temperature = String(t);
