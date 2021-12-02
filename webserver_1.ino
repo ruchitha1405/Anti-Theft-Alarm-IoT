@@ -534,7 +534,7 @@ void loop() {
   digitalWrite(buzzer, LOW);
   digitalWrite(motionLed, LOW);
   digitalWrite(fireLed, LOW);
-  int t= 0;
+  int m = 0;
   for(int i = 0; i< 10; i++){
       isDetected = digitalRead(pirPin);
       String motion_val = (String)isDetected;
@@ -542,7 +542,7 @@ void loop() {
   motion = String(isDetected);
   if (isDetected && authentication == 0)
   {
-    t = 1;
+    m = 1;
     Serial.println("Motion detected");
     digitalWrite(motionLed, HIGH);
     led_status = String("ON");
@@ -561,7 +561,7 @@ void loop() {
   }
   delay(100);
   }
-  if(t == 0)
+  if(m == 0)
   {
     Serial.println("No Motion Detected");
   }
