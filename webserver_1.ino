@@ -399,7 +399,7 @@ ptr +="</script>\n";
   ptr += "<br>\n";
   ptr += "<br>\n";
   ptr += "<div class=\"box\">\n";
-  ptr += "<button class=\"slidebtn\"><img src=\"https://previews.123rf.com/images/sanek13744/sanek137441907/sanek13744190700721/127709069-distance-pin-icon-in-comic-style-gps-navigation-vector-cartoon-illustration-on-white-isolated-backgr.jpg\" style=\"width: 150px; height:150px; border-radius: 100%; object-fit: cover;\"></button>\n";
+  ptr += "<button class=\"slidebtn\"><img src=\"https://thumb7.shutterstock.com/image-photo/stock-vector-vector-illustration-of-red-bulb-icon-250nw-575638942.jpg\" style=\"width: 150px; height:150px; border-radius: 100%; object-fit: cover;\"></button>\n";
   ptr += "<div class=\"hide\">\n";
   ptr += greenled_status;
   ptr += "</div>\n";
