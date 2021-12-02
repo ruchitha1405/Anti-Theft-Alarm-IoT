@@ -29,7 +29,7 @@ float t;
 String username;
 String password;
 
-String temperature, humidity, /*pressure, */motion,led_status,buzzer_status;
+String temperature, humidity, /*pressure, */motion,redled_status,greenled_status,buzzer_status;
 
 String distance = "200";
 /*Put your SSID & Password*/
@@ -321,7 +321,7 @@ String SendHTML_login(){
    String s = LOGIN_page;
   return s;
 } 
-String SendHTML_monitor(String temperature,String humidity,/*String pressure,*/String led_status,String buzzer_status,String distance,String motion){
+String SendHTML_monitor(String temperature,String humidity,/*String pressure,*/String redled_status,String buzzer_status,String greenled_status,String motion){
 
 String ptr = "<!DOCTYPE html> <html>\n";
   ptr +="<head><meta charset=\"utf-8\">\n";
@@ -360,7 +360,7 @@ ptr +="</script>\n";
   ptr +="<div class=\"box\">\n";
   ptr +="<button class=\"slidebtn\"><img src=\"https://image.shutterstock.com/image-vector/led-light-bulb-icon-on-260nw-709931749.jpg\" style=\"width: 150px; height:150px; border-radius: 100%; object-fit: cover;\"></button>\n";
   ptr +="<div class=\"hide\">\n";
-  ptr +=led_status;
+  ptr +=redled_status;
   ptr += "</div>\n";
   ptr += "</div>\n";
   ptr += "<br>\n";
@@ -401,7 +401,7 @@ ptr +="</script>\n";
   ptr += "<div class=\"box\">\n";
   ptr += "<button class=\"slidebtn\"><img src=\"https://previews.123rf.com/images/sanek13744/sanek137441907/sanek13744190700721/127709069-distance-pin-icon-in-comic-style-gps-navigation-vector-cartoon-illustration-on-white-isolated-backgr.jpg\" style=\"width: 150px; height:150px; border-radius: 100%; object-fit: cover;\"></button>\n";
   ptr += "<div class=\"hide\">\n";
-  ptr += distance;
+  ptr += greenled_status;
   ptr += "</div>\n";
   ptr += "</div>\n";
   ptr += "</div>\n";
@@ -446,7 +446,7 @@ void handle_login(){
 
 void handle_monitor(){
 
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,/* pressure,*/led_status, buzzer_status, String("200"), motion));
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,/* pressure,*/redled_status, buzzer_status, greenled_status, motion));
   }
 
 void handle_NotFound(){
@@ -454,16 +454,16 @@ void handle_NotFound(){
 }
 ////////extra
 void handle_monitorled(){
-    if(led_status=="ON"){
+    if(redled_status=="ON"){
           digitalWrite(motionLed, LOW);
-          digitalWrite(fireLed, LOW);
-          led_status=="OFF";
+          //digitalWrite(fireLed, LOW);
+          redled_status=="OFF";
       }
       else {
           digitalWrite(motionLed, HIGH);
-          led_status=="ON";
+          redled_status=="ON";
       }
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,led_status, buzzer_status, distance, motion));
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,redled_status, buzzer_status, greenled_status, motion));
   }
   void handle_monitorbuzzer(){
       if(buzzer_status=="ON"){
@@ -473,11 +473,11 @@ void handle_monitorled(){
       else {
           buzzer_status=="ON";
           digitalWrite(buzzer, HIGH);
-          delay(50);
-          digitalWrite(buzzer,LOW);
+          //delay(50);
+          //digitalWrite(buzzer,LOW);
           
       }
-  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,led_status, buzzer_status, distance, motion));
+  server.send(200, "text/html", SendHTML_monitor(temperature,humidity,redled_status, buzzer_status, greenled_status, motion));
   }
   ////////////////////
 //**************HANDLE FUNCTIONS END*************************
