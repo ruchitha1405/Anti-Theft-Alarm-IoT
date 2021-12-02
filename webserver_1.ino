@@ -534,6 +534,7 @@ void loop() {
   digitalWrite(buzzer, LOW);
   digitalWrite(motionLed, LOW);
   digitalWrite(fireLed, LOW);
+  int t= 0;
   for(int i = 0; i< 10; i++){
       isDetected = digitalRead(pirPin);
       String motion_val = (String)isDetected;
@@ -541,6 +542,7 @@ void loop() {
   motion = String(isDetected);
   if (isDetected && authentication == 0)
   {
+    t = 1;
     Serial.println("Motion detected");
     digitalWrite(motionLed, HIGH);
     led_status = String("ON");
@@ -552,16 +554,16 @@ void loop() {
         if(led_status == "OFF"){
 
         led_status = String("OFF");
-        break;;
+        break;
     }
     delay(1000);
   }
   }
-  else
-  {
-    Serial.println("No motion detected");
-  }
   delay(100);
+  }
+  if(t == 0)
+  {
+    Serial.println("No Motion Detected");
   }
 
   float t = dht.readTemperature();
