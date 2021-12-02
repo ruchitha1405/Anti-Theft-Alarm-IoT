@@ -530,10 +530,12 @@ void setup() {
 
 void loop() {
   server.handleClient();
-  led_status = String("OFF");
+  greenled_status = String("OFF");
   digitalWrite(motionLed, LOW);
   digitalWrite(fireLed, LOW);
   digitalWrite(buzzer, LOW);
+  buzzer_status = String("OFF");
+  redled_status = String("OFF");
   int authentication = 0;
   username = "";
   password = "";
@@ -579,15 +581,17 @@ void loop() {
     m = 1;
     Serial.println("Motion detected");
     digitalWrite(motionLed, HIGH);
-    led_status = String("ON");
+    greenled_status = String("ON");
+    buzzer_status = String("ON");
     digitalWrite(buzzer, HIGH);
     send_event("Motion_Detection"); 
     while(1)
     {
     Serial.println("Motion detected. If this is something you know please open the website");
-        if(led_status == "OFF"){
+        if(greenled_status == "OFF"){
 
-        led_status = String("OFF");
+        greenled_status = String("OFF");
+          buzzer_status = String("OFF");
         break;
     }
     delay(1000);
@@ -611,8 +615,9 @@ void loop() {
   if (t > 50)
   {
     digitalWrite(fireLed, HIGH);
-    led_status = String("ON");
+    redled_status = String("ON");
     digitalWrite(buzzer, HIGH);
+    buzzer_status = String("ON");
     delay(1000);
   }
 
@@ -632,7 +637,8 @@ void loop() {
     if (t > 50)
     {
       digitalWrite(fireLed, HIGH);
-      led_status = String("ON");
+      redled_status = String("ON");
+      buzzer_status = String("ON");
       digitalWrite(buzzer, HIGH);
       Serial.print("Temperature: ");
       Serial.println(t);
