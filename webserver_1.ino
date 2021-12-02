@@ -500,7 +500,8 @@ void setup() {
   digitalWrite(buzzer, LOW);
   dht.begin();
   Serial.println("--------------- Welcome -----------------");
-  led_status = (String)"0";
+  redled_status = (String)"0";
+  greenled_status = (String)"0";
 
   //connect to your local wi-fi network
   WiFi.begin(ssid, pwd);
