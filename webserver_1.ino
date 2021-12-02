@@ -33,8 +33,8 @@ String temperature, humidity, /*pressure, */motion,led_status,buzzer_status;
 
 String distance = "200";
 /*Put your SSID & Password*/
-const char* ssid = "Galaxy M511CCF";  // Enter SSID here
-const char* pwd = "vofe0348";  //Enter Password here
+const char* ssid = "Bhargavi";  // Enter SSID here
+const char* pwd = "09262525";  //Enter Password here
 
 String cse_ip = "192.168.1.7";   // Do ifconfig to get your ip.
 String cse_port = "8080";
@@ -49,10 +49,44 @@ String cnt3 = "node3";
 String ae4 = "Humidity";
 String cnt4 = "node4";
 
-void CreateCI(String& val, String& ae, String& cnt)
+void CreateCImotion(String& val)
 {
   HTTPClient http;
-  http.begin(Server + ae + "/" + cnt + "/");
+  http.begin(Server + ae1 + "/" + cnt1 + "/");
+  http.addHeader("X-M2M-Origin", "admin:admin");
+  http.addHeader("Content-Type", "application/json;ty=4");
+
+  int code = http.POST("{\"m2m:cin\": {\"cnf\":\"application/json\",\"con\": " + String(val) + "}}");
+
+  Serial.println(code);
+  if (code == -1) {
+    Serial.println("UNABLE TO CONNECT TO THE SERVER");
+  }
+  http.end();
+
+}
+
+void CreateCItemp(String& val)
+{
+  HTTPClient http;
+  http.begin(Server + ae3 + "/" + cnt3 + "/");
+  http.addHeader("X-M2M-Origin", "admin:admin");
+  http.addHeader("Content-Type", "application/json;ty=4");
+
+  int code = http.POST("{\"m2m:cin\": {\"cnf\":\"application/json\",\"con\": " + String(val) + "}}");
+
+  Serial.println(code);
+  if (code == -1) {
+    Serial.println("UNABLE TO CONNECT TO THE SERVER");
+  }
+  http.end();
+
+}
+
+void CreateCIhum(String& val)
+{
+  HTTPClient http;
+  http.begin(Server + ae4 + "/" + cnt4 + "/");
   http.addHeader("X-M2M-Origin", "admin:admin");
   http.addHeader("Content-Type", "application/json;ty=4");
 
@@ -365,7 +399,7 @@ ptr +="</script>\n";
   ptr += "<br>\n";
   ptr += "<br>\n";
   ptr += "<div class=\"box\">\n";
-  ptr += "<button class=\"slidebtn\"><img src=\"https://thumb7.shutterstock.com/image-photo/stock-vector-vector-illustration-of-red-bulb-icon-250nw-575638942.jpg\" style=\"width: 150px; height:150px; border-radius: 100%; object-fit: cover;\"></button>\n";
+  ptr += "<button class=\"slidebtn\"><img src=\"https://previews.123rf.com/images/sanek13744/sanek137441907/sanek13744190700721/127709069-distance-pin-icon-in-comic-style-gps-navigation-vector-cartoon-illustration-on-white-isolated-backgr.jpg\" style=\"width: 150px; height:150px; border-radius: 100%; object-fit: cover;\"></button>\n";
   ptr += "<div class=\"hide\">\n";
   ptr += distance;
   ptr += "</div>\n";
@@ -529,7 +563,7 @@ void loop() {
 
   humidity = dht.readHumidity();
   String humidity_val = (String)humidity;
-  CreateCI(humidity_val, ae4, cnt4);
+  CreateCIhum(humidity_val);
     
   digitalWrite(buzzer, LOW);
   digitalWrite(motionLed, LOW);
@@ -538,7 +572,7 @@ void loop() {
   for(int i = 0; i< 10; i++){
       isDetected = digitalRead(pirPin);
       String motion_val = (String)isDetected;
-      CreateCI(motion_val, ae1, cnt1);
+      CreateCImotion(motion_val);
   motion = String(isDetected);
   if (isDetected && authentication == 0)
   {
@@ -568,12 +602,12 @@ void loop() {
 
   float t = dht.readTemperature();
   String temp_val = (String)t;
-  CreateCI(temp_val, ae3, cnt3);
-    
+  CreateCItemp(temp_val);
+    t = 51;
   Serial.print("Temperature: ");
   Serial.println(t);
   temperature = String(t);
-
+  //t = 51;
   if (t > 50)
   {
     digitalWrite(fireLed, HIGH);
