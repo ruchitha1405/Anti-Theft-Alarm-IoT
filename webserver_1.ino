@@ -69,9 +69,10 @@ void CreateCI(String& val, String& ae, String& cnt)
 
 // Email alerts through IFTTTS SERVER
 const char *host = "maker.ifttt.com";
-const char *privateKey = "*********";
+const char *privateKey = "bSLur2fUl2Vlekpdj0xaJp6aMAeHWlU3WDePLuKWer4";
 
-WebServer server(80);             
+WebServer server(80); 
+void send_event(const char *event); 
 
 //**************SendHTML FUNCTIONS START*************************
 const char HOME_page[] PROGMEM = R"=====(
@@ -544,6 +545,7 @@ void loop() {
     digitalWrite(motionLed, HIGH);
     led_status = String("ON");
     digitalWrite(buzzer, HIGH);
+    send_event("Motion_Detection"); 
     while(1)
     {
     Serial.println("Motion detected. If this is something you know please open the website");
