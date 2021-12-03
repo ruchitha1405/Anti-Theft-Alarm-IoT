@@ -15,7 +15,7 @@ The Anti-theft system along with fire alarm is an IOT project to protect our imp
 * Now to setup the om2m server firstly run **python3 sensors.py**to create entities and then open **127.0.0.1:8080 or 127.0.0.1:8080/webpage** in your favorite browser.
 * Login to the om2m server. Your default **USERNAME: admin** and **PASSWORD: admin**
 * Once logged into the server you will notice extra 3 entities(Motion, Temperature, and Humidity) created.
-![om2m1](https://user-images.githubusercontent.com/82858718/144571999-591ff9ac-2485-4f9b-b7b0-eba344a76e33.png)
+![m2m](https://user-images.githubusercontent.com/82858718/144572286-59c58597-dae2-4b00-a9fc-1a2ee673e318.png)
 
 * Now upload the IDE code to your ESP32 and give your credentials within 20sec.
 * **NOTE:** In case you get an error regarding SerialPort connection then try running this command: sudo chmod 777 /dev/ttyUSB0
