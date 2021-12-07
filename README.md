@@ -10,6 +10,10 @@ The Anti-theft system along with fire alarm is an IOT project to protect our imp
   * If the password is correct then we do not activate any buzzer or alarm. 
   * If the password is incorrect or there has been no input and we detect a motion, then we activate buzzers and lights to indicate an attempt of theft. 
 * If the temperature of the locker exceeds a certain amount, then we give a buzzer to indicate fire. 
+## Functionalities
+* LED lighting up
+* Buzzer alarm
+* Email alerts
 ## How to setup ?
 * Before uploading the **project.ino** to your ESP32 make sure that you have put up your ssid and password correctly and also run **ifconfig** command in the terminal and paste your inet ip in the place of cse_ip in the code.
 * Now to setup the om2m server firstly run **python3 sensors.py**to create entities and then open **127.0.0.1:8080 or 127.0.0.1:8080/webpage** in your favorite browser.
